@@ -3,407 +3,347 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>፴ቱ የሃይማኖት ጥያቄዎችና ጥልቅ ማብራሪያዎች</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>፴ቱ ኦርቶዶክሳዊ ምላሾች - እንወቅ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;700&family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --deep-maroon: #5a0000;
-            --royal-gold: #c5a059;
-            --parchment: #fdf5e6;
-            --white: #ffffff;
-            --soft-gold: #fcf4dd;
+            --primary-gold: #D4AF37;
+            --dark-bg: #0f0f0f;
+            --card-bg: #1a1a1a;
+            --accent-red: #8b0000;
+            --text-gray: #cccccc;
         }
 
         body {
-            background-color: #121212;
-            color: #1a1a1a;
+            background-color: var(--dark-bg);
+            color: white;
             font-family: 'Noto Sans Ethiopic', sans-serif;
             margin: 0;
-            line-height: 1.6;
+            padding: 0;
         }
 
         .container {
             max-width: 1000px;
-            margin: 40px auto;
-            background: var(--parchment);
-            border: 12px double var(--royal-gold);
-            padding: 50px;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            margin: 0 auto;
+            padding: 40px 20px;
         }
-
-        .page { display: none; }
-        .active { display: block; }
 
         header {
             text-align: center;
-            border-bottom: 5px solid var(--deep-maroon);
-            margin-bottom: 40px;
-            padding-bottom: 20px;
+            padding-bottom: 50px;
+            border-bottom: 1px solid #333;
         }
 
-        header h1 { font-size: 2.5rem; color: var(--deep-maroon); margin: 0; }
-        header p { font-style: italic; color: var(--royal-gold); font-size: 1.2rem; }
-
-        .question-block {
-            margin-bottom: 40px;
-            background: var(--white);
-            padding: 30px;
-            border-radius: 8px;
-            border-left: 8px solid var(--deep-maroon);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        header h1 {
+            color: var(--primary-gold);
+            font-size: 2.8rem;
+            margin-bottom: 10px;
         }
 
-        .q-title {
-            color: var(--deep-maroon);
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            display: block;
+        .search-bar {
+            margin: 30px 0;
+            position: sticky;
+            top: 20px;
+            z-index: 100;
         }
 
-        .a-content {
-            font-size: 1.15rem;
-            text-align: justify;
-            line-height: 1.9;
-        }
-
-        .sub-heading {
-            font-weight: bold;
-            color: var(--royal-gold);
-            display: block;
-            margin-top: 15px;
-            text-decoration: underline;
-        }
-
-        .bible-ref {
-            display: block;
-            background: var(--soft-gold);
-            padding: 15px;
-            border-left: 4px solid var(--royal-gold);
-            margin-top: 15px;
-            font-style: italic;
-            font-weight: bold;
-        }
-
-        .nav-container {
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        .nav-btn {
-            background: var(--deep-maroon);
-            color: white;
-            padding: 18px 40px;
-            border: none;
-            cursor: pointer;
-            font-size: 1.3rem;
-            font-weight: bold;
+        .search-bar input {
+            width: 100%;
+            padding: 18px 25px;
             border-radius: 50px;
-            transition: 0.3s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 2px solid #333;
+            background: #111;
+            color: white;
+            font-size: 1.1rem;
+            outline: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .nav-btn:hover {
-            background: #000;
-            transform: scale(1.05);
+        .search-bar input:focus {
+            border-color: var(--primary-gold);
         }
 
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 2px solid var(--royal-gold);
-            color: var(--deep-maroon);
+        .faq-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: 15px;
+            border: 1px solid #222;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question {
+            padding: 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2rem;
             font-weight: bold;
+        }
+
+        .faq-question:hover {
+            color: var(--primary-gold);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+            background: #151515;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+
+        .active .faq-answer {
+            max-height: 2000px;
+            transition: max-height 1s ease-in-out;
+        }
+
+        .answer-body {
+            padding: 30px;
+            line-height: 1.8;
+            color: #ddd;
+            font-size: 1.05rem;
+        }
+
+        .tag {
+            background: var(--accent-red);
+            padding: 3px 12px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .bible-box {
+            background: rgba(212, 175, 55, 0.05);
+            border-left: 4px solid var(--primary-gold);
+            padding: 15px;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        .icon-rotate {
+            transition: 0.3s;
+        }
+
+        .active .icon-rotate {
+            transform: rotate(180deg);
+            color: var(--primary-gold);
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    
-    <div id="page1" class="page active">
-        <header>
-            <h1>፴ቱ መሠረታዊ ጥያቄዎችና ምላሾች</h1>
-            <p>ክፍል ፩፦ ከጥያቄ ፩ እስከ ፲፭ (ጥልቅ ትንታኔ)</p>
-        </header>
+    <header>
+        <h1>፴ቱ ተዘውታሪ ጥያቄዎችና መልሶች</h1>
+        <p>ስለ ኦርቶዶክሳዊት ተዋሕዶ ቤተክርስቲያን እውነቱን ይረዱ</p>
+    </header>
 
-        <div class="question-block">
-            <span class="q-title">፩. ስለ ቅዱሳን አማላጅነት እና ስለ ክርስቶስ ብቸኛ መድኃኒትነት</span>
-            <div class="a-content">
-                አማላጅነት በሁለት ይከፈላል፦ መድኃኒትነት (ቤዛነት) እና የልመና አማላጅነት። ክርስቶስ በደሙ የገዛን ብቸኛ መድኃኒት ነው። ቅዱሳን ግን በጸጋ የከበሩ ስለሆኑ በእግዚአብሔር ፊት ስለ እኛ ይለምናሉ። 
-                <span class="sub-heading">ምክንያት፦</span> ቅዱሳን ሕያዋን ናቸው። በሰማይ ያሉ መላእክትና ጻድቃን የሰውን ንሥሐ ያውቃሉ፣ ደስም ይላቸዋል።
-                <span class="bible-ref">"የጻድቅ ሰው ጸሎት በሥራዋ እጅግ ኃይል ታደርጋለች" (ያዕ ፭፥፲፮)</span>
-            </div>
-        </div>
-
-        <div class="question-block">
-            <span class="q-title">፪. ድንግል ማርያም ለምን "የአምላክ እናት" ትባላለች?</span>
-            <div class="a-content">
-                እርሷ የወለደችው ሥጋን ብቻ ሳይሆን ፍጹም አምላክ ፍጹም ሰው የሆነውን ክርስቶስን ነው። አካላዊ ቃል ከሥጋዋ ሥጋን ከነፍሷ ነፍስን ነስቶ ሰው ስለሆነ "ወላዲተ አምላክ" ትባላለች።
-                <span class="sub-heading">ድንግልናዋ፦</span> ከመውለዷ በፊት፣ በመውለድ ጊዜ እና ከወለደች በኋላም ዘለዓለማዊ ድንግል ናት።
-                <span class="bible-ref">"የጌታዬ እናት ወደ እኔ ትመጣ ዘንድ እንዴት ይሆንልኛል?" (ሉቃ ፩፥፵፫)</span>
-            </div>
-        </div>
-
-        <div class="question-block">
-            <span class="q-title">፫. ስለ ሥዕላት አስፈላጊነት በቤተክርስቲያን</span>
-            <div class="a-content">
-                ሥዕላት ለጣዖት የሚሰገድባቸው አይደሉም፤ ይልቁንም መጽሐፍ ቅዱስን ማንበብ ለማይችሉ "የዓይን ወንጌል" ናቸው። የእግዚአብሔርን ታላቅ ሥራ እና የቅዱሳንን ገድል እናስታውስባቸዋለን።
-                <span class="sub-heading">መሠረት፦</span> እግዚአብሔር ሙሴን የኪሩቤልን ምስል እንዲሠራ አዝዞታል።
-                <span class="bible-ref">"ሁለት ኪሩቤል ከወርቅ አድርገህ በስርየት መክደኛው በሁለቱ ጫፎች ትሠራለህ" (ዘጸ ፳፭፥፲፰)</span>
-            </div>
-        </div>
-
-        <div class="question-block">
-            <span class="q-title">፬. ጾም ለምን ያስፈልጋል? ከምግብ መከልከል ብቻ ነው?</span>
-            <div class="a-content">
-                ጾም ሥጋን ለነፍስ ማስገዣ መንገድ ነው። ነፍሳችን በሥጋዊ ፍላጎት እንዳትሸነፍ ፈቃደ ሥጋን በጾም እናደክማለን። እውነተኛ ጾም ከክፉ ነገር መራቅንና ለድሆች ማሰብን ይጨምራል።
-                <span class="bible-ref">"ይህ ዓይነት ግን በጸሎትና በጾም ካልሆነ በቀር አይወጣም" (ማቴ ፲፯፥፳፩)</span>
-            </div>
-        </div>
-
-        <div class="question-block">
-            <span class="q-title">፭. ታቦት በሐዲስ ኪዳን ለምን ያስፈልጋል?</span>
-            <div class="a-content">
-                ታቦት የእግዚአብሔር ዙፋንና ስሙ የሚጠራበት ንዋይ ቅዱስ ነው። በሐዲስ ኪዳን መስዋዕተ ቁርባን የሚቀርብበት መንበር ነው። በሰማያዊው መቅደስም ታቦት እንዳለ ተገልጧል።
-                <span class="bible-ref">"በሰማይም ያለው የእግዚአብሔር መቅደስ ተከፈተ የኪዳኑም ታቦት በመቅደሱ ታየ" (ራእይ ፲፩፥፲፱)</span>
-            </div>
-        </div>
-
-        <div class="question-block">
-            <span class="q-title">፮. መስቀል ለምን እናከብራለን?</span>
-            <div class="a-content">
-                መስቀል የቀድሞው የመርገም ዕንጨት ሳይሆን ክርስቶስ ደሙን ያፈሰሰበት የድኅነታችን ምልክት ነው። ሰይጣንን ድል የነሳንበት ኃይላችን ነው።
-                <span class="bible-ref">"የመስቀሉ ቃል ለሚጠፉት ሞኝነት ለእኛ ለምንድን ግን የእግዚአብሔር ኃይል ነው" (፩ቆሮ ፩፥፲፰)</span>
-            </div>
-        </div>
-
-        <div class="question-block">
-            <span class="q-title">፯. ኃጢአትን ለምን ለቄስ እንናገራለን? (ንስሐ)</span>
-            <div class="a-content">
-                ካህናት ከእግዚአብሔር ዘንድ "ኃጢአትን የመፍታት" ሥልጣን ተሰጥቷቸዋል። ኃጢአትን መናገር ትሕትናን ያመጣል፣ እንዲሁም ከኃጢአት በሽታ ለመፈወስ መመሪያ የምንቀበልበት መንገድ ነው።
-                <span class="bible-ref">"ኃጢአታቸውን ይቅር ያላችኋቸው ሁሉ ይቀርላቸዋል" (ዮሐ ፳፥፳፫)</span>
-            </div>
-        </div>
-
-        <div class="question-block">
-            <span class="q-title">፰. ሕፃናት ለምን ይጠመቃሉ?</span>
-            <div class="a-content">
-                ጥምቀት ከውኃና ከመንፈስ ተወልዶ መንግሥተ ሰማያትን ለመውረስ የግድ ነው። ሕፃናትም የአዳም በደል (ውርስ ኃጢአት) ስለሚኖርባቸውና የእግዚአብሔር ልጆች መሆን ስላለባቸው ይጠመቃሉ።
-                <span class="sub-heading">ምሳሌ፦</span> ጥምቀት በሐዲስ ኪዳን የግዝረት ምትክ ነው።
-                <span class="bible-ref">"እርሱና ቤተ ሰዎቹ ሁሉ ወዲያውኑ ተጠመቁ" (የሐዋ ፲፮፥፴፫)</span>
-            </div>
-        </div>
-
-        <div class="question-block">
-            <span class="q-title">፱. ገዳማዊ ሕይወት መጽሐፍ ቅዱሳዊ ነው?</span>
-            <div class="a-content">
-                አዎ፣ ዓለምንና ምኞቷን ትቶ በድንግልናና በብቸኝነት አምላክን ማገልገል ታላቅ ዋጋ አለው። ቅዱስ ኤልያስና መጥምቁ ዮሐንስ የገዳማዊ ሕይወት አባቶች ናቸው።
-                <span class="bible-ref">"ፍጹም ልትሆን ብትወድ... ያለህን ሽጠህ ለድሆች ስጥ... መጥተህም ተከተለኝ" (ማቴ ፲፱፥፳፩)</span>
-            </div>
-        </div>
-
-        <div class="question-block">
-            <span class="q-title">፲. የቅዱሳን አጥንት (አጽም) ጸጋ አለው?</span>
-            <div class="a-content">
-                የቅዱሳን ሥጋ የመንፈስ ቅዱስ ማደሪያ በመሆኑ ከሞቱም በኋላ ጸጋው ከአጥንታቸው አይለይም። እግዚአብሔር በወዳጆቹ አጥንት ተአምር ይሠራል።
-                <span class="bible-ref">"የሞተውም ሰው የኤልሳዕን አጥንት በነካ ጊዜ ሕያው ሆነና በእግሩ ቆመ" (፪ነገ ፲፫፥፳፩)</span>
-            </div>
-        </div>
-
-        <div class="question-block">
-            <span class="q-title">፲፩. ክህነት እንዴት ይሰጣል?</span>
-            <div class="a-content">
-                ክህነት ከሐዋርያት ጀምሮ በእጅ መጫን (ሢመት) የሚተላለፍ ሰማያዊ ሥልጣን ነው። ማንም በራሱ ፈቃድ ሊሾም አይችልም፤ መመረጥ አለበት።
-                <span class="bible-ref">"እንደ አሮን በእግዚአብሔር ከተጠራ በቀር ክብሩን ለራሱ የሚወስድ የለም" (ዕብ ፭፥፬)</span>
-            </div>
-        </div>
-
-        <div class="question-block">
-            <span class="q-title">፲፪. ሰንበትን ለምን እናከብራለን?</span>
-            <div class="a-content">
-                ቀዳሚት ሰንበት እግዚአብሔር ፍጥረታትን የፈጠረባትና ያረፈባት ናት። እሁድ ደግሞ ጌታ የተነሳባት በመሆኗ "የጌታ ቀን" ተብላ ትከበራለች።
-                <span class="bible-ref">"የሰንበትን ቀን ትቀድሰው ዘንድ አስብ" (ዘጸ ፳፥፰)</span>
-            </div>
-        </div>
-
-        <div class="question-block">
-            <span class="q-title">፲፫. ምጽዋት ኃጢአትን ያጠፋል?</span>
-            <div class="a-content">
-                ምጽዋት ከእግዚአብሔር ጋር የሚያስታርቅ ታላቅ ምግባር ነው። ለድሆች የምንሰጠው ነገር ለክርስቶስ እንደሰጠን ይቆጠራል።
-                <span class="bible-ref">"ውኃ የሚነድድን እሳት እንደሚያጠፋ ምጽዋትም ኃጢአትን ያጠፋል" (ሲራክ ፫፥፴)</span>
-            </div>
-        </div>
-
-        <div class="question-block">
-            <span class="q-title">፲፬. ለቅዱሳን መስገድ ስህተት ነው?</span>
-            <div class="a-content">
-                ለአምላክ የሚሰገድ የአምልኮ ስግደት (Latria) እና ለቅዱሳን የሚደረግ የጸጋና የአክብሮት ስግደት (Dulia) ይለያያሉ። ቅዱሳንን ማክበር ሰጪውን እግዚአብሔርን ማክበር ነው።
-                <span class="bible-ref">"በእግሩ መረገጫ እንስገድ" (መዝ ፺፰፥፭)</span>
-            </div>
-        </div>
-
-        <div class="question-block">
-            <span class="q-title">፲፭. ቅዱስ ቁርባን ምንድነው?</span>
-            <div class="a-content">
-                ቅዱስ ቁርባን ምሳሌ ሳይሆን እውነተኛ የክርስቶስ ሥጋና ደም ነው። አማኙን ከአምላኩ ጋር የሚያዋሕድና የዘለዓለም ሕይወት የሚሰጥ ታላቅ ምስጢር ነው።
-                <span class="bible-ref">"ሥጋዬን የሚበላ ደሜንም የሚጠጣ የዘለዓለም ሕይወት አለው" (ዮሐ ፮፥፶፬)</span>
-            </div>
-        </div>
-
-        <div class="nav-container">
-            <button class="nav-btn" onclick="nextPage()">ቀጣዩ ገጽ (፲፮ - ፴) →</button>
-        </div>
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="ጥያቄዎችን እዚህ ይፈልጉ..." onkeyup="searchFaq()">
     </div>
 
-    <div id="page2" class="page">
-        <header>
-            <h1>፴ቱ መሠረታዊ ጥያቄዎችና ምላሾች</h1>
-            <p>ክፍል ፪፦ ከጥያቄ ፲፮ እስከ ፴ (ጥልቅ ትንታኔ)</p>
-        </header>
+    <div class="faq-grid" id="faqGrid">
 
-        <div class="question-block">
-            <span class="q-title">፲፮. ትውፊት ምንድነው? ጥቅሙስ?</span>
-            <div class="a-content">
-                ትውፊት ማለት በቃልና በሥርዓት ከሐዋርያት ለቤተክርስቲያን የተላለፈ መንፈሳዊ ሀብት ነው። መጽሐፍ ቅዱስ ራሱ በትውፊት ላይ የተመሠረተ ነው። ያለ ትውፊት መጽሐፍ ቅዱስን በትክክል መረዳት አይቻልም።
-                <span class="bible-ref">"በቃላችንም ቢሆን ወይም በመልእክታችን የተማራችሁትን ወግ (ትውፊት) ያዙ" (፪ተሰ ፪፥፲፭)</span>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>1. ኦርቶዶክስ ለምን ለቅዱሳን ትሰግዳለች?</span>
+                <i class="fas fa-plus icon-rotate"></i>
+            </div>
+            <div class="faq-answer">
+                <div class="answer-body">
+                    <span class="tag">ስለ ስግደት</span>
+                    <p>በቤተክርስቲያን ሁለት ዓይነት ስግደቶች አሉ። አንደኛው ለፈጣሪ ብቻ የሚቀርብ "የአምልኮ ስግደት" ሲሆን፣ ሁለተኛው ግን እግዚአብሔር ላከበረው ሰው የሚሰጥ "የክብር ስግደት" ነው። ይህ አምልኮ ሳይሆን እግዚአብሔር በሰውየው ውስጥ ያለውን ጸጋ ማክበር ነው።</p>
+                    <div class="bible-box">
+                        በመጽሐፍ ቅዱስ በዘፍጥረት መጽሐፍ ላይ አብርሃም ለእንግዶቹ በትሕትና ሰግዷል። እንዲሁም በኢያሱ መጽሐፍ ላይ ኢያሱ ለእግዚአብሔር መልአክ በትሕትና ሰግዶለታል። ይህ የሚያሳየው ስግደት ለክብር ሊውል እንደሚችል ነው።
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="question-block">
-            <span class="q-title">፲፯. የመላእክት አገልግሎት ምንድነው?</span>
-            <div class="a-content">
-                መላእክት የእግዚአብሔር አገልጋዮችና የሰው ልጆች ጠባቂዎች ናቸው። ጸሎታችንን ወደ አምላክ ያሳርጋሉ፣ ከመከራም ይጠብቁናል።
-                <span class="bible-ref">"ሁሉ ድኅነትን ይወርሱ ዘንድ ስላላቸው ለማገዝ የሚላኩ የሚያገለግሉም መናፍስት አይደሉምን?" (ዕብ ፩፥፲፬)</span>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>2. ቅዱሳን ከሞቱ በኋላ እንዴት ይሰማሉ?</span>
+                <i class="fas fa-plus icon-rotate"></i>
+            </div>
+            <div class="faq-answer">
+                <div class="answer-body">
+                    <span class="tag">ስለ ቅዱሳን</span>
+                    <p>ሰው ሲሞት የሚሞተው ሥጋው እንጂ ነፍሱ አትሞትም። ቅዱሳን በነፍሳቸው ሕያዋን ስለሆኑና ከፈጣሪ ጋር ስላሉ፣ በምድር ላይ ያለነውን ሰዎች ድካምና ጸሎት የማወቅ ጸጋ ተሰጥቷቸዋል።</p>
+                    <div class="bible-box">
+                        ጌታችን በሉቃስ ወንጌል ላይ ባስተማረው የሀብታሙ ሰውና የአልዓዛር ታሪክ፣ አብርሃም ከሞተ ከብዙ ዘመናት በኋላም በገነት ሆኖ በምድር ያለውን ጭንቀት ይሰማና ይረዳ ነበር። ይህም ቅዱሳን እንደማይጠፉ ያሳያል።
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="question-block">
-            <span class="q-title">፲፰. እጣን ለምን እናጥናለን?</span>
-            <div class="a-content">
-                እጣን የንጹሕ ጸሎት ምሳሌ ነው። መቅደሱን ለመቀደስና ጸሎታችን ወደ ሰማይ እንደ እጣን እንዲያርግ ምልክት ነው።
-                <span class="bible-ref">"ጸሎቴን በፊትህ እንደ ዕጣን ተቀበልልኝ" (መዝ ፻፵፥፪)</span>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>4. እመቤታችን ለምን ከሁሉም ትበልጣለች?</span>
+                <i class="fas fa-plus icon-rotate"></i>
+            </div>
+            <div class="faq-answer">
+                <div class="answer-body">
+                    <span class="tag">እመቤታችን</span>
+                    <p>እመቤታችን ድንግል ማርያም አምላክን በማኅፀኗ የተሸከመች፣ በድንግልና ወልዳ ወተት የመገበች እናት ናት። አምላክ የመረጣት ንጽሕት ስለሆነች፣ ከፍጥረት ሁሉ በላይ ሆና እንድትከበር አድርጓታል።</p>
+                    <div class="bible-box">
+                        በሉቃስ ወንጌል ላይ ኤልሳቤጥ በመንፈስ ቅዱስ ተሞልታ "የጌታዬ እናት ወደ እኔ ትመጣ ዘንድ እንዴት ይሆንልኛል?" ስትል በታላቅ ድምፅ አክብራታለች። መላእክትም ሳይቀሩ አክብረው ሰላምታ ሰጥተዋታል።
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="question-block">
-            <span class="q-title">፲፱. ጥምቀት ለምን አንዴ ብቻ ይሆናል?</span>
-            <div class="a-content">
-                ጥምቀት ከክርስቶስ ጋር የመሞትና የመነሳት ምስጢር ነው። ክርስቶስ አንዴ እንደሞተ ሁሉ እኛም አንዴ እንጠመቃለን። ጥምቀትን መድገም ክርስቶስን ዳግመኛ እንደመስቀል ይቆጠራል።
-                <span class="bible-ref">"አንድ ጌታ፣ አንድ ሃይማኖት፣ አንዲት ጥምቀት" (ኤፌ ፬፥፭)</span>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>13. ሕፃናት ለምን ይጠመቃሉ?</span>
+                <i class="fas fa-plus icon-rotate"></i>
+            </div>
+            <div class="faq-answer">
+                <div class="answer-body">
+                    <span class="tag">ጥምቀት</span>
+                    <p>ጥምቀት የእግዚአብሔር ልጅ መሆኛ ነው። ሕፃናትም መንግሥተ ሰማያትን የመውረስ መብት ስላላቸው፣ ሳያውቁ ገና በሕፃንነታቸው የጸጋ ልጅነትን እንዲያገኙ እናጠምቃቸዋለን።</p>
+                    <div class="bible-box">
+                        ጌታችን በማርቆስ ወንጌል ላይ "ሕፃናት ወደ እኔ ይመጡ ዘንድ አትከልክሏቸው" ብሏል። ሕፃናትም ከአዳም የመጣውን የኃጢአት መርገም ለማጥፋት መጠመቅ አለባቸው።
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="question-block">
-            <span class="q-title">፳. ስለ ሰማዕታት ክብር</span>
-            <div class="a-content">
-                ስለ ክርስቶስ ፍቅርና ስለ ሃይማኖታቸው ደማቸውን ያፈሰሱ ቅዱሳን በሰማይ ታላቅ ክብር አላቸው። ደማቸው የቤተክርስቲያን ዘር ነው።
-                <span class="bible-ref">"እስከ ሞት ድረስ የታመንህ ሁን የሕይወትንም አክሊል እሰጥሃለሁ" (ራእይ ፪፥፲)</span>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>14. ጾም ለምን ያስፈልጋል?</span>
+                <i class="fas fa-plus icon-rotate"></i>
+            </div>
+            <div class="faq-answer">
+                <div class="answer-body">
+                    <span class="tag">ጾም</span>
+                    <p>ጾም ማለት ሥጋን አስርቦ ነፍስን ማጥገብ ነው። ሰውነታችንን በምግብ ስናደክመው፣ ነፍሳችን ወደ ፈጣሪ ለመቅረብ ትበረታለች። ይህም የፈቃድ መግዣ እንጂ የቅጣት አይደለም።</p>
+                    <div class="bible-box">
+                        ጌታችን ራሱ በማቴዎስ ወንጌል ላይ እንደተጠቀሰው ለ40 ቀናት በመጾም አርአያ ሆኖናል። ደግሞም አንዳንድ ክፉ ፈተናዎች በጾምና በጸሎት እንጂ በሌላ እንደማይወጡ አስተምሯል።
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="question-block">
-            <span class="q-title">፳፩. የቤተክርስቲያን አንድነት</span>
-            <div class="a-content">
-                ቤተክርስቲያን በዓለም ሁሉ ብትኖርም በአንድ ሃይማኖትና በአንድ ስርዓት የተሳሰረች አንዲት ናት። ራስዋም ክርስቶስ ነው።
-                <span class="bible-ref">"አካልም አንድ እንደ ሆነ... እናንተም በአንድ ተስፋ ተጠርታችኋል" (ኤፌ ፬፥፬)</span>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>16. ንሥሐ ለምን ለቄስ ይነገራል?</span>
+                <i class="fas fa-plus icon-rotate"></i>
+            </div>
+            <div class="faq-answer">
+                <div class="answer-body">
+                    <span class="tag">ንሥሐ</span>
+                    <p>ካህን የእግዚአብሔር እንደራሴና የነፍስ ሐኪም ነው። ለሐኪም በሽታ እንደሚነገር፣ ለካህንም ኃጢአትን በመናገር ምክርና ሥርየት ይገኛል። እግዚአብሔር ለካህናት የማሰርና የመፍታት ሥልጣን ሰጥቷቸዋል።</p>
+                    <div class="bible-box">
+                        ጌታችን በዮሐንስ ወንጌል ላይ ለሐዋርያት (ለካህናት) "ኃጢአታቸውን ይቅር ያላችኋቸው ይለቀቅላቸዋል፤ የያዛችሁባቸውም ይያዝባቸዋል" የሚል ሥልጣን ሰጥቷቸዋል።
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="question-block">
-            <span class="q-title">፳፪. ተስፋ ትንሣኤ ምንድነው?</span>
-            <div class="a-content">
-                ሰው ከሞተ በኋላ ነፍስና ሥጋ ተዋሕደው ዳግመኛ እንደሚነሱ ማመን ነው። ይህ የክርስትና እምነት መሠረት ነው።
-                <span class="bible-ref">"በመቃብር ያሉት ሁሉ ድምፁን የሚሰሙበት ሰዓት ይመጣልና በዚህ አትደነቁ" (ዮሐ ፭፥፳፰)</span>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>18. ኦርቶዶክስ "በሥራ ነው የምንድነው" የምትለው ለምንድነው?</span>
+                <i class="fas fa-plus icon-rotate"></i>
+            </div>
+            <div class="faq-answer">
+                <div class="answer-body">
+                    <span class="tag">ደኅነት</span>
+                    <p>ቤተክርስቲያን የምታስተምረው ሰው የሚድነው በእምነትና በሥራ እንደሆነ ነው። "አምናለሁ" የሚል ሰው ያመነውን አምላክ በትእዛዙ መታዘዝ (ሥራ መሥራት) አለበት። እምነት ያለ ሥራ የሞተ ነው።</p>
+                    <div class="bible-box">
+                        በያዕቆብ መልእክት ላይ እምነት ያለ ሥራ የሞተ እንደሆነ ተጽፏል። ደግሞም ጌታችን በመጨረሻው ፍርድ ጊዜ የሚጠይቀን ለተራቡት ስላበላነውና ስለሠራነው መልካም ሥራ እንደሆነ በማቴዎስ 25 ላይ በግልጽ ተቀምጧል።
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="question-block">
-            <span class="q-title">፳፫. ፍርድ እንዴት ይሆናል?</span>
-            <div class="a-content">
-                ጌታ በክብር በሚመጣበት ጊዜ እያንዳንዱ እንደ ሥራው ዋጋውን ይቀበላል። ጻድቃን በቀኙ፣ ኃጢአተኞች በግራው ይቆማሉ።
-                <span class="bible-ref">"ሰው ሁሉ እንደ ሥራው መጠን ይከፈለው ዘንድ ይመጣል" (ማቴ ፲፮፥፳፯)</span>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>23. በባዶ እግር ወደ ቤተክርስቲያን መግባት ለምን አስፈለገ?</span>
+                <i class="fas fa-plus icon-rotate"></i>
+            </div>
+            <div class="faq-answer">
+                <div class="answer-body">
+                    <span class="tag">ሥርዓት</span>
+                    <p>ቤተክርስቲያን የእግዚአብሔር ቅዱስ ስፍራ ናት። ጫማችንን አውልቀን የምንገባው ስፍራውን በማክበርና በትሕትና በፈጣሪ ፊት ለመቆም ነው።</p>
+                    <div class="bible-box">
+                        እግዚአብሔር ሙሴን በዘጸአት መጽሐፍ ላይ "የቆምክባት ስፍራ ቅዱስ ናትና ጫማህን አውልቅ" እንዳለው፣ እኛም ያንኑ ትእዛዝ በማክበር በክብር እንገባለን።
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="question-block">
-            <span class="q-title">፳፬. መንግሥተ ሰማያት ለማን ናት?</span>
-            <div class="a-content">
-                የእግዚአብሔርን ፈቃድ ለሚፈጽሙ፣ በሃይማኖትና በምግባር ለሚጸኑና ንሥሐ ለሚገቡ የተዘጋጀች የዘለዓለም የደስታ ቦታ ናት።
-                <span class="bible-ref">"በሰማያት ያለውን የአባቴን ፈቃድ የሚያደርግ እንጂ... መንግሥተ ሰማያት የሚገባ አይደለም" (ማቴ ፯፥፳፩)</span>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>26. ጸበል እንዴት ይፈውሳል?</span>
+                <i class="fas fa-plus icon-rotate"></i>
+            </div>
+            <div class="faq-answer">
+                <div class="answer-body">
+                    <span class="tag">ፈውስ</span>
+                    <p>ጸበል በእግዚአብሔር ስም የተባረከ ውኃ ነው። በካህኑ ጸሎት ውኃው የመንፈስ ቅዱስን ኃይል ስለሚለብስ፣ በእምነት ለሚጠመቁት የሥጋና የነፍስ ፈውስ ይሰጣል።</p>
+                    <div class="bible-box">
+                        በዮሐንስ ወንጌል ላይ በመጠመቂያው ውኃ ውስጥ መልአክ ወርዶ ውኃውን ሲያናውጠው የታመሙት ይፈወሱ እንደነበር ተጽፏል። ይህም ውኃ በእግዚአብሔር ኃይል ፈዋሽ እንደሚሆን ያረጋግጣል።
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="question-block">
-            <span class="q-title">፳፭. ገሃነም ምንድነው?</span>
-            <div class="a-content">
-                ለሰይጣንና ለተከታዮቹ የተዘጋጀ የቅጣት ቦታ ነው። ከእግዚአብሔር ፊት ተለይቶ በጨለማና በሥቃይ የሚኖሩበት ነው።
-                <span class="bible-ref">"እናንተ ርጉማን ለሰይጣንና ለመላእክቱ ወደ ተዘጋጀ ወደ ዘለዓለም እሳት ከእኔ ሂዱ" (ማቴ ፳፭፥፵፩)</span>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>30. ሁልጊዜ መጸለይ ለምን አስፈለገ?</span>
+                <i class="fas fa-plus icon-rotate"></i>
+            </div>
+            <div class="faq-answer">
+                <div class="answer-body">
+                    <span class="tag">ጸሎት</span>
+                    <p>ጸሎት የነፍስ ምግብ ነው። ከፈጣሪ ጋር የምንገናኝበትና ሰላምን የምናገኝበት ብቸኛው መንገድ ስለሆነ፣ ክርስቲያን በደስታም ሆነ በችግር ጊዜ ወደ አምላኩ መጮህ አለበት።</p>
+                    <div class="bible-box">
+                        ጌታችን በሉቃስ ወንጌል ላይ "ሳይታክቱ ሁልጊዜ መጸለይ እንደሚገባቸው" አስተምሯል። ጸሎት ከአምላክ ጋር ያለንን ግንኙነት ያጠነክራል።
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="question-block">
-            <span class="q-title">፳፮. ትሕትና ለምን ያስፈልጋል?</span>
-            <div class="a-content">
-                ትሕትና ወደ መንግሥተ ሰማያት መግቢያ በር ነው። ክርስቶስ ራሱን ዝቅ በማድረግ አርአያ ሆኖናል። እግዚአብሔር ትዕቢተኞችን ይቃወማል።
-                <span class="bible-ref">"ራሱን ከፍ የሚያደርግ ሁሉ ይዋረዳል፣ ራሱንም የሚያዋርድ ከፍ ይላል" (ማቴ ፳፫፥፲፪)</span>
-            </div>
-        </div>
-
-        <div class="question-block">
-            <span class="q-title">፳፯. ትዕግሥት በመከራ ጊዜ</span>
-            <div class="a-content">
-                ክርስቲያን በመከራ ጊዜ ማጉረምረም የለበትም። በትዕግሥት የሚጸና መጨረሻው ድኅነት ነው።
-                <span class="bible-ref">"እስከ መጨረሻ የሚጸና ግን እርሱ ይድናል" (ማቴ ፳፬፥፲፫)</span>
-            </div>
-        </div>
-
-        <div class="question-block">
-            <span class="q-title">፳፰. ፍቅር ከሁሉም ይበልጣል?</span>
-            <div class="a-content">
-                ፍቅር የሕግ ሁሉ ፍጻሜ ነው። እግዚአብሔር ፍቅር ነው። ያለ ፍቅር የሚደረግ ማንኛውም ምግባር ከንቱ ነው።
-                <span class="bible-ref">"እርስ በርሳችሁ ፍቅር ቢኖራችሁ ደቀ መዛሙርቴ እንደ ሆናችሁ ሰዎች ሁሉ በዚህ ያውቃሉ" (ዮሐ ፲፫፥፴፭)</span>
-            </div>
-        </div>
-
-        <div class="question-block">
-            <span class="q-title">፳፱. ስለ ቤተክርስቲያን ግርማና ስርዓት</span>
-            <div class="a-content">
-                መቅደስ የእግዚአብሔር መኖሪያ በመሆኑ ቅድስናና አክብሮት ይገባዋል። በቤተክርስቲያን ውስጥ በዝምታና በጸሎት መቆም ይገባል።
-                <span class="bible-ref">"ለቤትህ ቅድስና ለዘለዓለም ይገባል" (መዝ ፺፪፥፭)</span>
-            </div>
-        </div>
-
-        <div class="question-block">
-            <span class="q-title">፴. የሊቃውንት ትምህርት አስፈላጊነት</span>
-            <div class="a-content">
-                መጽሐፍ ቅዱስን እንደፈለግን እንዳንተረጉም ሊቃውንት በመንፈስ ቅዱስ ተመርተው ያስተማሩን ትርጓሜ እንደ አጥር ይጠብቀናል።
-                <span class="bible-ref">"የሚመራኝ ሳይኖር ይህ እንዴት ይቻለኛል?" (የሐዋ ፰፥፴፩)</span>
-            </div>
-        </div>
-
-        <div class="nav-container">
-            <button class="nav-btn" onclick="prevPage()">← ወደ ቀደመው ገጽ ተመለስ</button>
-        </div>
     </div>
-
-    <footer>
-        <p>ወስብሐት ለእግዚአብሔር ወለወላዲቱ ድንግል ወለመስቀሉ ክቡር!</p>
-    </footer>
 </div>
 
 <script>
-    function nextPage() {
-        document.getElementById('page1').classList.remove('active');
-        document.getElementById('page2').classList.add('active');
-        window.scrollTo(0, 0);
-    }
+    // FAQ Toggle Functionality
+    const faqItems = document.querySelectorAll('.faq-item');
 
-    function prevPage() {
-        document.getElementById('page2').classList.remove('active');
-        document.getElementById('page1').classList.add('active');
-        window.scrollTo(0, 0);
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            
+            // Close other items
+            faqItems.forEach(i => i.classList.remove('active'));
+            
+            // Toggle current
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        });
+    });
+
+    // Search Filter
+    function searchFaq() {
+        const input = document.getElementById('searchInput');
+        const filter = input.value.toLowerCase();
+        const items = document.querySelectorAll('.faq-item');
+
+        items.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            item.style.display = text.includes(filter) ? "block" : "none";
+        });
     }
 </script>
 
