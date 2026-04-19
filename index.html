@@ -1,9 +1,9 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="am">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>፴ቱ ጥልቅ ኦርቶዶክሳዊ ምላሾች - እንወቅ (by yonas daniel)</title>
+    <title>፴ቱ ጥልቅ ኦርቶዶክሳዊ ምላሾች - እንወቅ (Enwok)</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -99,7 +99,7 @@
             margin: 40px 0;
         }
 
-        .nav-btn {
+        .nav-btn, .about-trigger {
             background: transparent;
             border: 1px solid var(--gold);
             color: var(--gold);
@@ -107,10 +107,56 @@
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
+            transition: 0.3s;
         }
 
-        .nav-btn:hover:not(:disabled) { background: var(--gold); color: #000; }
+        .nav-btn:hover:not(:disabled), .about-trigger:hover { background: var(--gold); color: #000; }
         .nav-btn:disabled { border-color: #444; color: #444; }
+
+        /* Footer Credit */
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid var(--border);
+            margin-top: 50px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        .dev-name { color: var(--gold); font-weight: bold; }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            margin: 15% auto;
+            padding: 30px;
+            border: 1px solid var(--gold);
+            width: 80%;
+            max-width: 500px;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            color: var(--gold);
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -118,6 +164,7 @@
 <div class="main-header">
     <h1>፴ቱ ጥልቅ ኦርቶዶክሳዊ ማብራሪያዎች</h1>
     <p>NEXAsoftsolution - እንወቅ (Enwok) ፕሮጀክት</p>
+    <button class="about-trigger" onclick="toggleModal(true)">ስለ እኛ (About)</button>
 </div>
 
 <div class="container">
@@ -349,7 +396,7 @@
                 <div class="bible-zone">
                     <h4>የመጽሐፍ ቅዱስ ምስክርነት፦</h4>
                     <div class="verse"><b>ምሳሌ 6:21፦</b> "በአንገትህ እሰካቸው"።</div>
-                    <div class="verse"><b>ራእይ 7:3፦</b> የእግዚአብሔር ባሪያዎች ማኅተም አላቸው።</div>
+                    <div class="verse"><b>раእይ 7:3፦</b> የእግዚአብሔር ባሪያዎች ማኅተም አላቸው።</div>
                     <span class="study">📖 ጥናት፦ ዘዳግም 6 ያንብቡ።</span>
                 </div>
             </div></div>
@@ -436,7 +483,7 @@
                 <div class="bible-zone">
                     <h4>የመጽሐፍ ቅዱስ ምስክርነት፦</h4>
                     <div class="verse"><b>1ኛ ቆሮንቶስ 1:18፦</b> "የመስቀሉ ቃል የእግዚአብሔር ኃይል ነው"።</div>
-                    <div class="verse"><b>ገላትያ 6:14፦</b> ከመስቀል በቀር ሌላ ትምክህት አይኑረኝ።</div>
+                    <div class="verse"><b>ገላትያ 6:14፦</b> ከመስቀል በቀር ሌላ ትምክህት አይኑረኝ.</div>
                     <span class="study">📖 ጥናት፦ ቆላስይስ 2 ያንብቡ።</span>
                 </div>
             </div></div>
@@ -499,6 +546,21 @@
 
 </div>
 
+<div id="aboutModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="toggleModal(false)">&times;</span>
+        <h2 style="color: var(--gold);">ስለ ፕሮጀክቱ (About Us)</h2>
+        <p>ይህ "እንወቅ" (Enwok) የተሰኘው የጥናት ፕሮጀክት በኦርቶዶክሳዊት ተዋሕዶ ቤተክርስቲያን ትምህርቶች ላይ ጥልቅ ግንዛቤ ለመስጠት የተዘጋጀ ነው።</p>
+        <hr style="border: 0.5px solid var(--border);">
+        <p>Developed by: <span class="dev-name">Yonas Daniel</span></p>
+        <p>Company: <span class="dev-name">NEXAsoftsolution</span></p>
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 NEXAsoftsolution | Designed by <span class="dev-name">Yonas Daniel</span>
+</footer>
+
 <script>
     let activePage = 1;
     const maxPages = 3;
@@ -513,6 +575,20 @@
         document.getElementById('indicator').innerText = `ገጽ ${activePage} ከ ${maxPages}`;
         
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Modal Control
+    function toggleModal(show) {
+        const modal = document.getElementById('aboutModal');
+        modal.style.display = show ? 'block' : 'none';
+    }
+
+    // Close modal if user clicks outside of it
+    window.onclick = function(event) {
+        const modal = document.getElementById('aboutModal');
+        if (event.target == modal) {
+            toggleModal(false);
+        }
     }
 
     document.querySelectorAll('.faq-question').forEach(q => {
